@@ -43,6 +43,9 @@ Per provare la build con `npm run preview`, eseguire prima `npm run build`.
 
 La disponibilità dei risultati e delle descrizioni dipende dai dati forniti da Open Library.
 
+## pubblicazione online
+[Link alla pubblicazione](https://jsadvancedasqui.netlify.app/)
+
 ## Struttura del progetto
 
 ```text
