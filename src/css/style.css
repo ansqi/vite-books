@@ -78,6 +78,10 @@ h1 {
   }
 }
 
+.search-controls {
+  width: min(100%, 420px);
+}
+
 .search-loader {
   width: 20px;
   height: 20px;

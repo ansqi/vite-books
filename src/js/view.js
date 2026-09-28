@@ -30,17 +30,35 @@ export function initSearchArea(element) {
             </div>
         </div>
     `
+    // aggiungo al body la modale per i dettagli del libro, che sarà gestita da Bootstrap
     document.body.appendChild(modalElement)
     const detailsModal = new Modal(modalElement)
     const modalTitle = modalElement.querySelector('.modal-title')
     const modalBody = modalElement.querySelector('.modal-body')
 
+    //un piccolo loader per la ricerca, che sarà mostrato solo durante la ricerca
     const loader = document.createElement('span')
     loader.className = 'search-loader'
     loader.hidden = true
     loader.setAttribute('role', 'status')
     loader.setAttribute('aria-label', 'Ricerca in corso')
-    element.insertAdjacentElement('afterend', loader)
+
+    const searchButton = document.createElement('button')
+    searchButton.type = 'button'
+    searchButton.className = 'btn btn-primary btn-sm'
+    searchButton.textContent = 'Cerca'
+    searchButton.addEventListener('click', async () => {
+        const term = element.value.trim()
+        if (term) {
+            await launchSearch(term)
+        }
+    })
+    const searchControls = document.createElement('div')
+    searchControls.className = 'search-controls input-group input-group-sm'
+    element.classList.add('form-control')
+    element.before(searchControls)
+    searchControls.append(element, searchButton)
+    searchControls.insertAdjacentElement('afterend', loader)
 
     const launchSearch = async (term) => {
         element.setAttribute('aria-busy', 'true')
