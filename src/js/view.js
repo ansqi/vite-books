@@ -46,7 +46,7 @@ export function initSearchArea(element) {
     const searchButton = document.createElement('button')
     searchButton.type = 'button'
     searchButton.className = 'btn btn-primary btn-sm'
-    searchButton.textContent = 'Cerca'
+    searchButton.textContent = 'Search'
     searchButton.addEventListener('click', async () => {
         const term = element.value.trim()
         if (term) {
