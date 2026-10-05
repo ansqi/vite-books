@@ -3,14 +3,14 @@ import { Book, BookDetails } from './model.js'
 import { Costants, JsonMapper, Utils } from './utils.js'
 
 describe('Costants', () => {
-	test('espone i template degli endpoint Open Library', () => {
+	test('exposes the Open Library endpoint templates', () => {
 		expect(Costants.urlBase).toBe('https://openlibrary.org/subjects/##.json')
 		expect(Costants.urlWorkBase).toBe('https://openlibrary.org/works/##.json')
 	})
 })
 
 describe('Utils', () => {
-	test('serializza un oggetto in JSON', () => {
+	test('serializes an object to JSON', () => {
 		const value = { title: 'Dune', pages: 412 }
 
 		expect(Utils.objectToJson(value)).toBe('{"title":"Dune","pages":412}')
@@ -18,7 +18,7 @@ describe('Utils', () => {
 })
 
 describe('JsonMapper', () => {
-	test('mappa i risultati della ricerca in istanze Book', async () => {
+	test('maps search results into Book instances', async () => {
 		const results = await JsonMapper.mapObject([
 			{
 				title: 'Dune',
@@ -29,21 +29,21 @@ describe('JsonMapper', () => {
 				title: 'Foundation',
 				key: '/works/OL262758W',
 			},
-		], 'book')
+		], 'mapBooks')
 
 		expect(results).toEqual([
-			new Book('Dune', '/works/OL893415W', 'Frank Herbert|Another Author'),
+			new Book('Dune', '/works/OL893415W', 'Frank Herbert,Another Author'),
 			new Book('Foundation', '/works/OL262758W', 'Unknown'),
 		])
 		expect(results[0]).toBeInstanceOf(Book)
 		expect(results[1]).toBeInstanceOf(Book)
 	})
 
-	test('mappa una descrizione testuale in un’istanza BookDetails', async () => {
+	test('maps a text description into a BookDetails instance', async () => {
 		const result = await JsonMapper.mapObject({
 			title: 'Dune',
 			description: 'A science fiction novel.',
-		}, 'bookDetails')
+		}, 'mapBookDetails')
 
 		expect(result).toEqual(new BookDetails('Dune', 'A science fiction novel.'))
 		expect(result).toBeInstanceOf(BookDetails)

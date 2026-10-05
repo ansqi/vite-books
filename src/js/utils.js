@@ -9,15 +9,15 @@ export class Utils {
 		return JSON.stringify(object)
 	}
 }
-//classe di utilità per mappare gli oggetti JSON in oggetti JavaScript
+// utility class to map JSON objects to JavaScript objects
 export class JsonMapper {
 	static async mapObject(json, type) {
-		if (type === 'book') {
+		if (type === 'mapBooks') {
 			return json.map(book => {
-				return new Book(book.title, book.key, book.authors ? book.authors.map(author => author.name).join('|') : 'Unknown')
+				return new Book(book.title, book.key, book.authors ? book.authors.map(author => author.name).join(',') : 'Unknown')
 			});
 		}
-		if (type === 'bookDetails') {
+		if (type === 'mapBookDetails') {
 			return new BookDetails(json.title, json.description ? (typeof json.description === 'string' ? json.description : json.description.value) : 'No description available')
 
 		}

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { SearchManager } from './controller.js'
+import { SearchManager } from './bookService.js'
 import { Book, BookDetails } from './model.js'
 
 afterEach(() => {
@@ -8,7 +8,7 @@ afterEach(() => {
 })
 
 describe('SearchManager', () => {
-    test('cerca per categoria e mappa i risultati in libri', async () => {
+    test('searches by category and maps results to books', async () => {
         const response = {
             ok: true,
             json: vi.fn().mockResolvedValue({
@@ -28,6 +28,7 @@ describe('SearchManager', () => {
 
         expect(fetchMock).toHaveBeenCalledWith(
             'https://openlibrary.org/subjects/science%20fiction.json',
+            { signal: expect.any(AbortSignal) },
         )
         expect(response.json).toHaveBeenCalledOnce()
         expect(result).toEqual([
@@ -35,13 +36,13 @@ describe('SearchManager', () => {
         ])
     })
 
-    test('segnala un errore HTTP durante la ricerca', async () => {
+    test('reports an HTTP error during search', async () => {
         const response = { ok: false, status: 503, json: vi.fn() }
         const fetchMock = vi.fn().mockResolvedValue(response)
         vi.stubGlobal('fetch', fetchMock)
 
         await expect(new SearchManager().searchByTerm('fantasy'))
-            .rejects.toThrow('Ricerca non riuscita: 503')
+            .rejects.toThrow('Search failed: 503')
         expect(response.json).not.toHaveBeenCalled()
     })
 

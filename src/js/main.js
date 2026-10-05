@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { initSearchArea } from './view.js'
+import { initSearchArea } from './ui.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 document.querySelector('#app').innerHTML = `
 <section id="center">
