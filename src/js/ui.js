@@ -41,7 +41,7 @@ export function initSearchArea(element) {
     loader.className = 'search-loader'
     loader.hidden = true
     loader.setAttribute('role', 'status')
-    loader.setAttribute('aria-label', 'Ricerca in corso')
+    loader.setAttribute('aria-label', 'Searching for books')
 
     const searchButton = document.createElement('button')
     searchButton.type = 'button'

@@ -12,7 +12,7 @@ describe('Costants', () => {
 
 describe('JsonMapper', () => {
 	test('maps search results into Book instances', async () => {
-		const results = await JsonMapper.mapObject([
+		const results = JsonMapper.mapBooks([
 			{
 				title: 'Dune',
 				key: '/works/OL893415W',
@@ -25,7 +25,7 @@ describe('JsonMapper', () => {
 		], 'mapBooks')
 
 		expect(results).toEqual([
-			new Book('Dune', '/works/OL893415W', 'Frank Herbert,Another Author'),
+			new Book('Dune', '/works/OL893415W', 'Frank Herbert, Another Author'),
 			new Book('Foundation', '/works/OL262758W', 'Unknown'),
 		])
 		expect(results[0]).toBeInstanceOf(Book)
@@ -33,7 +33,7 @@ describe('JsonMapper', () => {
 	})
 
 	test('maps a text description into a BookDetails instance', async () => {
-		const result = await JsonMapper.mapObject({
+		const result = JsonMapper.mapBookDetails({
 			title: 'Dune',
 			description: 'A science fiction novel.',
 		}, 'mapBookDetails')
