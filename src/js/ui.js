@@ -65,8 +65,11 @@ export function initSearchArea(element) {
   errorMessage.hidden = true;
   searchControls.insertAdjacentElement("afterend", errorMessage);
 
+  let currentSearchId = 0
   const launchSearch = async (term) => {
+        const searchId = ++currentSearchId
         element.setAttribute('aria-busy', 'true')
+                errorMessage.hidden = true;
     loader.hidden = false;
     try {
       const booksFoundMapped = await searchManager.searchByTerm(term);
@@ -78,8 +81,10 @@ export function initSearchArea(element) {
         errorMessage.hidden = false;
       }
     } finally {
-            element.removeAttribute('aria-busy');
-      loader.hidden = true;
+      if (searchId === currentSearchId) {
+        element.removeAttribute('aria-busy');
+        loader.hidden = true;
+      }
     }
   };
 

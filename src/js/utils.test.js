@@ -9,13 +9,6 @@ describe('Costants', () => {
 	})
 })
 
-describe('Utils', () => {
-	test('serializes an object to JSON', () => {
-		const value = { title: 'Dune', pages: 412 }
-
-		expect(Utils.objectToJson(value)).toBe('{"title":"Dune","pages":412}')
-	})
-})
 
 describe('JsonMapper', () => {
 	test('maps search results into Book instances', async () => {

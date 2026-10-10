@@ -18,7 +18,7 @@ export class SearchManager {
         throw new Error(`Search failed: ${response.status}`);
       }
       const data = await response.json();
-      return JsonMapper.mapObject(data.works, "mapBooks");
+      return JsonMapper.mapBooks(data.works);
     } finally {
       if (this.currentAbortController === abortController) {
         this.currentAbortController = null;
@@ -33,7 +33,7 @@ export class SearchManager {
       throw new Error(`Book details failed: ${response.status}`);
     }
     const data = await response.json();
-    let mapped = JsonMapper.mapObject(data, "mapBookDetails");
+    let mapped = JsonMapper.mapBookDetails(data);
 
     return mapped;
   }
